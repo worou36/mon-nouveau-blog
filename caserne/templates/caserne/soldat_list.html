@@ -1,0 +1,12 @@
+{% extends 'caserne/base.html' %}
+{% block content %}
+{% for soldat in soldats %}
+<div class="soldat">
+    <h2><a href="{% url 'soldat_detail' id_character=soldat.id_character %}">{{ soldat.id_character }}</a></h2>
+
+    <div class="lieu">
+        <strong>Localisation du soldat : </strong>{{ soldat.lieu}}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

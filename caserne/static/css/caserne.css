@@ -1,0 +1,69 @@
+/* Corps de page */
+body {
+    background-color: #4B5320;
+    /* Fond vert armée */
+    color: white;
+    /* Texte en blanc */
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+/* Titres */
+h1,
+h2,
+h3 {
+    color: #FFD700;
+    /* Titre en or militaire */
+}
+
+/* Liens */
+a {
+    color: #FFD700;
+    /* Liens en or militaire */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #FF4500;
+    /* Liens au survol en orange vif */
+}
+
+/* Boutons */
+button,
+.btn {
+    background-color: #556B2F;
+    /* Bouton en vert sombre */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover,
+.btn:hover {
+    background-color: #8B4513;
+    /* Bouton au survol en marron */
+}
+
+/* Zones de formulaire */
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+    background-color: #D2B48C;
+    /* Champ de texte en couleur sable */
+    border: 1px solid #556B2F;
+    /* Bordure verte */
+    color: #333;
+    /* Texte noir */
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* En-têtes et pieds de page */
+header,
+footer {
+    background-color: #556B2F;
+    /* Fond de l'en-tête et du pied de page en vert militaire */
+    color: white;
+    padding: 15px;
+}

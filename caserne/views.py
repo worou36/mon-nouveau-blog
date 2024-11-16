@@ -18,7 +18,7 @@ def soldat_detail(request, id_character, message=""):
             # Récupérer le nouveau lieu depuis le formulaire
             new_lieu = form.cleaned_data["lieu"]
 
-            if new_lieu.id_equip in ("Douche", "Barre_tractions"):
+            if new_lieu.id_equip in ("Douche", "Barre de tractions"):
                 # Vérifier si le lieu est déjà occupé
                 if new_lieu.disponibilite == "occupé":
                     message = f"Le lieu {new_lieu.id_equip} est déjà occupé."

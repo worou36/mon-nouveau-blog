@@ -1,6 +1,6 @@
 from .models import Character, Equipement
 from .forms import MoveForm
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, get_object
 
 
 def soldat_list(request):

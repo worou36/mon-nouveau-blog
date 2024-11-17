@@ -26,5 +26,5 @@ def soldat_detail(request, id_character):
         return render(
             request,
             "caserne/soldat_detail.html",
-            {"character": character, "lieu": character.lieu, "form": form},
+            {"soldat": character, "lieu": character.lieu, "form": form},
         )

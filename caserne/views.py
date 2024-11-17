@@ -26,7 +26,7 @@ def soldat_detail(request, id_character):
         else:
             # Libérer l'ancien lieu si assigné
             
-            ancien_lieu = get_object_or_404(Equipement, id_equip=soldat.lieu.id_equip)
+            ancien_lieu = get_object(Equipement, id_equip=soldat.lieu.id_equip)
             ancien_lieu.disponibilite = "libre"
             ancien_lieu.save()
 

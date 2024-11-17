@@ -25,4 +25,4 @@ def soldat_detail(request, id_character):
         form = MoveForm()
         return render(request,
                   'caserne/soldat_detail.html',
-                  {'soldat': soldat, "form": form, "lieu" : lieu})
+                  {'soldat': soldat, "form": form})

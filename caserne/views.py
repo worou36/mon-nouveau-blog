@@ -25,19 +25,19 @@ def soldat_detail(request, id_character):
             message = f"Le lieu {nouveau_lieu.id_equip} est déjà occupé."
         else:
             # Libérer l'ancien lieu si assigné
-            if soldat.lieu:
+            
                 # Récupérer explicitement l'ancien lieu associé au soldat
-                ancien_lieu = get_object_or_404(Equipement, id_equip=soldat.lieu.id_equip)
+            ancien_lieu = get_object_or_404(Equipement, id_equip=soldat.lieu.id_equip)
                 
                 # Afficher l'ancien lieu dans les logs pour vérifier
-                print(f"Ancien lieu : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}")
+            print(f"Ancien lieu : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}")
                 
                 # S'assurer que l'ancien lieu est bien marqué comme libre
-                ancien_lieu.disponibilite = "libre"
-                ancien_lieu.save()  # Sauvegarder l'ancien lieu
+            ancien_lieu.disponibilite = "libre"
+            ancien_lieu.save()  # Sauvegarder l'ancien lieu
 
                 # Afficher l'ancien lieu après modification
-                print(f"Ancien lieu après modification : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}")
+            print(f"Ancien lieu après modification : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}")
 
             # Sauvegarder le formulaire pour mettre à jour le lieu du soldat
             form.save()

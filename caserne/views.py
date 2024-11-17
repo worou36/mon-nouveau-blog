@@ -13,36 +13,35 @@ def soldat_detail(request, id_character, message=""):
     soldat = get_object_or_404(Character, id_character=id_character)
     form = MoveForm(request.POST or None, instance=soldat)
 
-    if request.method == "POST":
-        if form.is_valid():
-            # Récupérer le nouveau lieu depuis le formulaire
-            new_lieu = form.cleaned_data["lieu"]
+    if request.method == "POST" and form.is_valid():
+        new_lieu = form.cleaned_data["lieu"]
+        ancien_lieu = soldat.lieu
 
-            if new_lieu.id_equip in ("Douche", "Barre de tractions"):
-                # Vérifier si le lieu est déjà occupé
-                if new_lieu.disponibilite == "occupé":
-                    message = f"Le lieu {new_lieu.id_equip} est déjà occupé."
-                else:
-                    # Mise à jour si disponible
-                    ancien_lieu = soldat.lieu
-                    if ancien_lieu:
-                        ancien_lieu.disponibilite = "libre"
-                        ancien_lieu.save()
-
-                    new_lieu.disponibilite = "occupé"
-                    new_lieu.save()
-                    form.save()
-                    return redirect("soldat_detail", id_character=soldat.id_character)
-
+        # Vérification des contraintes de disponibilité
+        if new_lieu.id_equip in ("Douche", "Barre de tractions"):
+            if new_lieu.disponibilite == "occupé":
+                message = f"Le lieu {new_lieu.id_equip} est déjà occupé."
             else:
-                # Pour les lieux sans contraintes (piscine, dortoir, etc.)
-                ancien_lieu = soldat.lieu
+                # Mise à jour de l'ancien lieu
                 if ancien_lieu:
                     ancien_lieu.disponibilite = "libre"
                     ancien_lieu.save()
 
+                # Mise à jour du nouveau lieu
+                new_lieu.disponibilite = "occupé"
+                new_lieu.save()
+
+                # Enregistrer le changement de lieu
                 form.save()
                 return redirect("soldat_detail", id_character=soldat.id_character)
+        else:
+            # Gestion des lieux sans contraintes
+            if ancien_lieu:
+                ancien_lieu.disponibilite = "libre"
+                ancien_lieu.save()
+
+            form.save()
+            return redirect("soldat_detail", id_character=soldat.id_character)
 
     return render(
         request,

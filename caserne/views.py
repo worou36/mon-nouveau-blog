@@ -11,6 +11,7 @@ def soldat_list(request):
 def soldat_detail(request, id_character):
     # Récupérer le soldat
     soldat = get_object_or_404(Character, id_character=id_character)
+    ancien_lieu = get_object_or_404(Equipement, id_equip=soldat.lieu.id_equip)
 
     # Instancier le formulaire lié au soldat
     form = MoveForm(request.POST or None, instance=soldat)
@@ -25,21 +26,22 @@ def soldat_detail(request, id_character):
             message = f"Le lieu {nouveau_lieu.id_equip} est déjà occupé."
         else:
             # Libérer l'ancien lieu si assigné
-            
-            try:
-                ancien_lieu = get_object_or_404(Equipement, id_equip=soldat.lieu.id_equip)
-            except Http404:
-                print(f"Erreur : L'équipement avec l'ID {soldat.lieu.id_equip} n'a pas été trouvé.")
-                message = "Erreur : L'équipement n'existe pas ou a été supprimé."
-                # Afficher l'ancien lieu dans les logs pour vérifier
-            print(f"Ancien lieu : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}")
-                
-                # S'assurer que l'ancien lieu est bien marqué comme libre
-            ancien_lieu.disponibilite = "celeste"
-            ancien_lieu.save()  # Sauvegarder l'ancien lieu
+            if soldat.lieu:
+                # Le lieu déjà assigné au soldat
 
-                # Afficher l'ancien lieu après modification
-            print(f"Ancien lieu après modification : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}")
+                # Vérifier et afficher l'état de l'ancien lieu
+                print(
+                    f"Ancien lieu avant mise à jour : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}"
+                )
+
+                # Marquer l'ancien lieu comme libre
+                ancien_lieu.disponibilite = "libre"
+                ancien_lieu.save()  # Sauvegarder l'ancien lieu
+
+                # Vérifier et afficher l'état de l'ancien lieu après mise à jour
+                print(
+                    f"Ancien lieu après mise à jour : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}"
+                )
 
             # Sauvegarder le formulaire pour mettre à jour le lieu du soldat
             form.save()
@@ -47,6 +49,11 @@ def soldat_detail(request, id_character):
             # Marquer le nouveau lieu comme occupé
             nouveau_lieu.disponibilite = "occupé"
             nouveau_lieu.save()  # Sauvegarder immédiatement après la mise à jour de la disponibilité
+
+            # Vérifier l'état du nouveau lieu
+            print(
+                f"Nouveau lieu après mise à jour : {nouveau_lieu.id_equip} - Disponibilité : {nouveau_lieu.disponibilite}"
+            )
 
             # Rediriger après les modifications
             return redirect("soldat_detail", id_character=soldat.id_character)

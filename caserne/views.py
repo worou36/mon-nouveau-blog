@@ -26,9 +26,11 @@ def soldat_detail(request, id_character):
         else:
             # Libérer l'ancien lieu si assigné
             
-                # Récupérer explicitement l'ancien lieu associé au soldat
-            ancien_lieu = get_object_or_404(Equipement, id_equip=soldat.lieu.id_equip)
-                
+            try:
+                ancien_lieu = get_object_or_404(Equipement, id_equip=soldat.lieu.id_equip)
+            except Http404:
+                print(f"Erreur : L'équipement avec l'ID {soldat.lieu.id_equip} n'a pas été trouvé.")
+                message = "Erreur : L'équipement n'existe pas ou a été supprimé."
                 # Afficher l'ancien lieu dans les logs pour vérifier
             print(f"Ancien lieu : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}")
                 

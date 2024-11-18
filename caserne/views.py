@@ -43,7 +43,7 @@ def soldat_detail(request, id_character):
             form.save()
 
             # Marquer le nouveau lieu comme occupé
-            nouveau_lieu.disponibilite = "occupé"
+            nouveau_lieu.disponibilite = "babar"
             nouveau_lieu.save()  # Sauvegarder immédiatement après la mise à jour de la disponibilité
 
             # Rediriger après les modifications

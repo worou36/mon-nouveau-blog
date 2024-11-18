@@ -33,7 +33,7 @@ def soldat_detail(request, id_character):
             print(f"Ancien lieu : {ancien_lieu.id_equip} - Disponibilité : {ancien_lieu.disponibilite}")
                 
                 # S'assurer que l'ancien lieu est bien marqué comme libre
-            ancien_lieu.disponibilite = "libre"
+            ancien_lieu.disponibilite = "celeste"
             ancien_lieu.save()  # Sauvegarder l'ancien lieu
 
                 # Afficher l'ancien lieu après modification
@@ -43,7 +43,7 @@ def soldat_detail(request, id_character):
             form.save()
 
             # Marquer le nouveau lieu comme occupé
-            nouveau_lieu.disponibilite = "babar"
+            nouveau_lieu.disponibilite = "occupé"
             nouveau_lieu.save()  # Sauvegarder immédiatement après la mise à jour de la disponibilité
 
             # Rediriger après les modifications
